@@ -1,6 +1,6 @@
 class CreateGoalsTable < ActiveRecord::Migration
   def change
-    create_table :goals_tables do |t|
+    create_table :goals do |t|
       t.column  :game_id,   :int
       t.column  :player_id, :int
       t.column  :assist_id, :int

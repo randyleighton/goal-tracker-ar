@@ -2,6 +2,7 @@ require 'active_record'
 require './lib/game.rb'
 require './lib/player.rb'
 require './lib/team.rb'
+require 'pry'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
 development_configuration = database_configurations['development']
@@ -114,7 +115,7 @@ def add_player
   view_teams
   print "\nChoose the [#] of the player's team: "
   team_inp = gets.chomp.to_i
-  player_new = Player.new({name: name_inp, number: number_inp ,team_id: team_inp})
+  player_new = Player.create({name: name_inp, number: number_inp ,team_id: team_inp})
   puts "#{player_new.name} added."
 end
 
@@ -126,8 +127,14 @@ def add_team
 end
 
 def add_game
-  puts "\n\nEnter the date of the game in this format xxxx-xx-xx ie. 2014-08-17"
-  choice = gets.chomp
+  print "\n\nEnter the date of the game yyyy/mm/dd: "
+  game_date = gets.chomp
+  print "\n\nEnter the [#] of the Home Team: "
+  home_team = gets.chomp.to_i
+  print "\n\nEnter the [#] of the Visiting Team: "
+  visitor_team = gets.chomp.to_i
+  new_game = Game.create(game_date: game_date,home_id: home_team ,visitor_id:visitor_team)
+  puts "Game on #{new_game.game_date} between #{new_game.home_id} and #{new_game.visitor_id} entered."
 end
 
 def remove_player
@@ -164,6 +171,7 @@ def view_games
   puts "Games:"
   puts "(id) Date"
   puts "---- --------"
+  Game.all.each {|game| puts "#{game.game_date} between team #{game.home_id} and team #{game.visitor_id}"}
 end
 
 def add_goal

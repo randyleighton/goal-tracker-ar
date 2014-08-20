@@ -1,6 +1,6 @@
 class CreateGamesTable < ActiveRecord::Migration
   def change
-    create_table :games_tables do |t|
+    create_table :games do |t|
       t.column :game_date,  :datetime
       t.column :home_id,    :int
       t.column :visitor_id, :int

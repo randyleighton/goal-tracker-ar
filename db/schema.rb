@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140820012051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "games_tables", force: true do |t|
+  create_table "games", force: true do |t|
     t.datetime "game_date"
     t.integer  "home_id"
     t.integer  "visitor_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140820012051) do
     t.datetime "updated_at"
   end
 
-  create_table "goals_tables", force: true do |t|
+  create_table "goals", force: true do |t|
     t.integer  "game_id"
     t.integer  "player_id"
     t.integer  "assist_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20140820012051) do
     t.datetime "updated_at"
   end
 
-  create_table "players_tables", force: true do |t|
+  create_table "players", force: true do |t|
     t.string   "name"
     t.integer  "number"
     t.integer  "team_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140820012051) do
     t.datetime "updated_at"
   end
 
-  create_table "teams_tables", force: true do |t|
+  create_table "teams", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
