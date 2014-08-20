@@ -1,36 +1,104 @@
-require './lib/games.rb'
-require './lib/players.rb'
+require 'active_record'
+require './lib/game.rb'
+require './lib/player.rb'
+require './lib/team.rb'
+
+database_configurations = YAML::load(File.open('./db/config.yml'))
+development_configuration = database_configurations['development']
+ActiveRecord::Base.establish_connection(development_configuration)
 
 def  main_menu
   system("clear")
   choice = nil
   until choice  == 'x'
     puts "[== Main Menu==]"
-    puts "(1) Add a game to the database"
-    puts "(2) Add a player to the database"
-    puts "    You must create players and Games to add or view goals"
-    puts "(3) Add a goal to a player"
-    puts "(4) View goals by Player (already added to player)"
-    puts "(5) View Game Dates"
-    puts "(6) View Players"
-
-    puts "(x) EXIT\n\n"
+    puts "(1) Data Management Menu"
+    puts "    * Add/Remove/View"
+    puts "    * players/teams/game dates\n\n"
+    puts "(2) Goal Management Menu"
+    puts "    * add/view/remove goals\n\n"
+    puts "(x) Exit Goal Tracker\n\n"
+    print "Enter Choice: "
     choice = gets.chomp
     case choice
     when '1'
-      add_game
+      data_menu
     when '2'
-      add_player
-    when '3'
-      add_goal
-    when '4'
-      view_goals
-    when '5'
-      view_games
-    when '6'
-      view_players
+      goal_menu
     when 'x'
-      puts "keep watching soccer!"
+      puts "Thank you for using goal tracker"
+    else
+      puts "Incorrect choice."
+    end
+  end
+end
+
+def data_menu
+  system("clear")
+  choice = nil
+  until choice  == 'x'
+    puts "[== Data Menu ==]\n\n"
+    puts "[= ADD =]"
+    puts "(1) Add a Player"
+    puts "(2) Add a Team"
+    puts "(3) Add a Game\n\n"
+    puts "[= REMOVE=]"
+    puts "(4) Remove a Player"
+    puts "(5) Remove a Team"
+    puts "(6) Remove a Game\n\n"
+    puts "[= VIEW =]"
+    puts "(7) View a Player"
+    puts "(8) View a Team"
+    puts "(9) View a Game\n\n"
+    puts "[= EXIT=]"
+    puts "(x) Exit to Main Menu\n\n"
+    print "Enter Choice: "
+    choice = gets.chomp
+    case choice
+    when '1'
+      add_player
+    when '2'
+      add_team
+    when '3'
+      add_game
+    when '4'
+      remove_player
+    when '5'
+      remove_team
+    when '6'
+      remove_game
+    when '7'
+      view_players
+    when '8'
+      view_teams
+    when '9'
+      view_games
+    when 'x'
+      puts "returning to main menu"
+    else
+      puts "Incorrect choice."
+    end
+  end
+end
+
+def goal_menu
+  system("clear")
+  choice = nil
+  until choice  == 'x'
+    puts "[== Goal Menu ==]"
+    puts "\n(1) Add a goal to a player"
+    puts "(2) View goals by player"
+    puts "\n"
+    puts "(x) Exit to Main Menu\n\n"
+    print "Enter Choice: "
+    choice = gets.chomp
+    case choice
+    when '1'
+      add_player
+    when '2'
+      add_team
+    when 'x'
+      puts "returning to main menu."
     else
       puts "Incorrect choice."
     end
