@@ -110,11 +110,19 @@ def add_player
   name_inp = gets.chomp
   print "\nEnter the player's number: "
   number_inp = gets.chomp.to_i
-  print "\nEnter the player's team name: "
-  team_inp = gets.chomp
+  puts "\n\n"
+  view_teams
+  print "\nChoose the [#] of the player's team: "
+  team_inp = gets.chomp.to_i
+  player_new = Player.new({name: name_inp, number: number_inp ,team_id: team_inp})
+  puts "#{player_new.name} added."
 end
 
 def add_team
+  print "Enter a team name: "
+  team = gets.chomp
+  new_team = Team.create({name: team})
+  puts "#{new_team.name} created."
 end
 
 def add_game
@@ -132,11 +140,23 @@ end
 def view_players
   system("clear")
   puts "Players:"
-  puts "(id) Name - Jersey# - Team Name"
-  puts "---- --------------------------"
+  puts "(id) Name - Jersey#"
+  puts "---- --------------"
+  Player.all.each do |player|
+    puts "(#{player.id}) #{player.name} #{player.number}"
+  end
+  puts "\n\n"
 end
 
 def view_teams
+  system("clear")
+  puts "Teams:"
+  puts "(id) Team Name"
+  puts "---- ---------------------"
+  Team.all.each do |team|
+    puts "(#{team.id}) #{team.name}"
+  end
+  puts "\n\n"
 end
 
 def view_games
