@@ -85,8 +85,8 @@ def goal_menu
   system("clear")
   choice = nil
   until choice  == 'x'
-    puts "[== Goal Menu ==]"
-    puts "\n(1) Add a goal to a player"
+    puts "[== Goal Menu ==]\n\n"
+    puts "(1) Add a goal to a player"
     puts "(2) View goals by player"
     puts "\n"
     puts "(x) Exit to Main Menu\n\n"
@@ -94,9 +94,9 @@ def goal_menu
     choice = gets.chomp
     case choice
     when '1'
-      add_player
+      add_goal
     when '2'
-      add_team
+      view_goals
     when 'x'
       puts "returning to main menu."
     else
@@ -112,21 +112,31 @@ def add_player
   number_inp = gets.chomp.to_i
   print "\nEnter the player's team name: "
   team_inp = gets.chomp
+end
 
+def add_team
 end
 
 def add_game
   puts "\n\nEnter the date of the game in this format xxxx-xx-xx ie. 2014-08-17"
   choice = gets.chomp
-
 end
 
+def remove_player
+end
+def remove_team
+end
+def remove_game
+end
 
 def view_players
   system("clear")
   puts "Players:"
   puts "(id) Name - Jersey# - Team Name"
   puts "---- --------------------------"
+end
+
+def view_teams
 end
 
 def view_games
