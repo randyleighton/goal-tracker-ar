@@ -130,7 +130,7 @@ def add_player
 end
 
 def add_team
-  print "Enter a team name: "
+  print "\n\nEnter a team name: "
   team = gets.chomp
   new_team = Team.create({name: team})
   puts "#{new_team.name} created."
@@ -149,7 +149,7 @@ end
 
 def remove_player
   view_players
-  print "Player (#) to delete: "
+  print "\n\nPlayer (#) to delete: "
   remove_input = gets.chomp.to_i
   current_player = Player.find(remove_input)
   puts "Destroying #{current_player.name}."
@@ -157,7 +157,7 @@ def remove_player
 end
 def remove_team
   view_teams
-  print "Team (#) to delete: "
+  print "\n\nTeam (#) to delete: "
   team_input = gets.chomp.to_i
   current_team = Team.find(team_input)
   puts "Destroying #{current_team.name}."
@@ -165,7 +165,7 @@ def remove_team
 end
 def remove_game
   view_games
-  print "Game (#) to delete: "
+  print "\n\nGame (#) to delete: "
   game_input = gets.chomp.to_i
   current_game = Game.find(game_input)
   puts "Destroying Game Id: #{current_game.id}"
@@ -173,8 +173,9 @@ def remove_game
 end
 
 def view_player
+  system("clear")
   view_players
-  puts "Choose (#) for player detail"
+  puts "\nChoose (#) for player detail"
   player_choice = gets.chomp.to_i
   current_player = Player.find(player_choice)
   puts "Player Name: #{current_player.name}"
@@ -184,15 +185,32 @@ def view_player
 end
 
 def view_team
+  system("clear")
   view_teams
-  puts "Choose (#) for team detail"
-
+  puts "\nChoose (#) for team detail"
+  team_choice = gets.chomp.to_i
+  current_team = Team.find(team_choice)
+  puts "Team Name: #{current_team.name}"
+  puts "\nPlayer list:"
+  current_team.players.each do |player|
+    puts "* #{player.name} ##{player.number}"
+  end
+  puts "\n\n"
 end
 
 def view_game
+  system("clear")
   view_games
-  puts "Choose (#) for game detail"
-
+  puts "\nChoose (#) for game detail"
+  game_choice = gets.chomp.to_i
+  current_game = Game.find(game_choice)
+  home_team = Team.find(current_game.home_id)
+  visitor_team = Team.find(current_game.visitor_id)
+  puts "Game Detail: "
+  puts " Date: #{current_game.game_date.strftime "%Y-%m-%d"}"
+  puts " Home team: #{home_team.name}"
+  puts " Visit team: #{visitor_team.name}"
+  puts "\n\n"
 end
 
 def view_players
