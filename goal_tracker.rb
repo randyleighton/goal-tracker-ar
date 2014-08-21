@@ -48,9 +48,13 @@ def data_menu
     puts "(5) Remove Team"
     puts "(6) Remove Game\n\n"
     puts "[= VIEW =]"
-    puts "(7) View Players"
-    puts "(8) View Teams"
-    puts "(9) View Games\n\n"
+    puts "(7) View Player Detail"
+    puts "(8) View Team Detail"
+    puts "(9) View Game Detail"
+    puts "[= VIEW ALL =]"
+    puts "(10) View all Players"
+    puts "(11) View all Teams"
+    puts "(12) View all Games\n\n"
     puts "[= EXIT=]"
     puts "(x) Exit to Main Menu\n\n"
     print "Enter Choice: "
@@ -69,10 +73,16 @@ def data_menu
     when '6'
       remove_game
     when '7'
-      view_players
+      view_player
     when '8'
-      view_teams
+      view_team
     when '9'
+      view_game
+    when '10'
+      view_players
+    when '11'
+      view_teams
+    when '12'
       view_games
     when 'x'
       puts "returning to main menu"
@@ -162,6 +172,24 @@ def remove_game
   current_game.destroy
 end
 
+def view_player
+  view_players
+  puts "Choose (#) for player detail"
+
+end
+
+def view_team
+  view_teams
+  puts "Choose (#) for team detail"
+
+end
+
+def view_game
+  view_games
+  puts "Choose (#) for game detail"
+
+end
+
 def view_players
   system("clear")
   puts "Players:"
@@ -187,9 +215,9 @@ end
 def view_games
   system("clear")
   puts "Games:"
-  puts "(id) Date -- Home Team ID -- Visitor Team ID"
-  puts "---- ---------------------------------------"
-  Game.all.each {|game| puts "(#{game.id}) #{game.game_date.strftime "%Y-%m-%d"} between team #{game.home_id} and team #{game.visitor_id}"}
+  puts "(id) Date       Home ID  Visit ID"
+  puts "---- ---------------------------"
+  Game.all.each {|game| puts "(#{game.id}) #{game.game_date.strftime "%Y-%m-%d"}   #{game.home_id}       #{game.visitor_id}"}
   puts "\n\n"
 end
 

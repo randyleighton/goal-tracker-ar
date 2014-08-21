@@ -3,7 +3,9 @@ require 'rspec'
 require 'game'
 require 'player'
 require 'team'
+require 'goal'
 require 'pry'
+require 'shoulda-matcher'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
 development_configuration = database_configurations['test']
