@@ -5,16 +5,15 @@ require 'player'
 require 'team'
 require 'goal'
 require 'pry'
-require 'shoulda-matcher'
+require 'shoulda-matchers'
 
-database_configurations = YAML::load(File.open('./db/config.yml'))
-development_configuration = database_configurations['test']
-ActiveRecord::Base.establish_connection(test_configuration)
+ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['test'])
 
 RSpec.configure do |config|
   config.after(:each) do
-    Game.all.each { |game| game.destroy }
+    Game.all.each {|game| game.destroy}
     Player.all.each {|player| player.destroy}
     Team.all.each {|team| team.destroy}
+    Goal.all.each {|goal| goal.destroy}
   end
 end

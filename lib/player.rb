@@ -1,3 +1,7 @@
 class Player < ActiveRecord::Base
-  has_one :team
+
+  belongs_to :team
+  has_many :goals
+  has_many :games, through: :goals
+
 end
