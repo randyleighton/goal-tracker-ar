@@ -40,17 +40,17 @@ def data_menu
   until choice  == 'x'
     puts "[== Data Menu ==]\n\n"
     puts "[= ADD =]"
-    puts "(1) Add a Player"
-    puts "(2) Add a Team"
-    puts "(3) Add a Game\n\n"
+    puts "(1) Add Player"
+    puts "(2) Add Team"
+    puts "(3) Add Game\n\n"
     puts "[= REMOVE=]"
-    puts "(4) Remove a Player"
-    puts "(5) Remove a Team"
-    puts "(6) Remove a Game\n\n"
+    puts "(4) Remove Player"
+    puts "(5) Remove Team"
+    puts "(6) Remove Game\n\n"
     puts "[= VIEW =]"
-    puts "(7) View a Player"
-    puts "(8) View a Team"
-    puts "(9) View a Game\n\n"
+    puts "(7) View Players"
+    puts "(8) View Teams"
+    puts "(9) View Games\n\n"
     puts "[= EXIT=]"
     puts "(x) Exit to Main Menu\n\n"
     print "Enter Choice: "
@@ -138,10 +138,28 @@ def add_game
 end
 
 def remove_player
+  view_players
+  print "Player (#) to delete: "
+  remove_input = gets.chomp.to_i
+  current_player = Player.find(remove_input)
+  puts "Destroying #{current_player.name}."
+  current_player.destroy
 end
 def remove_team
+  view_teams
+  print "Team (#) to delete: "
+  team_input = gets.chomp.to_i
+  current_team = Team.find(team_input)
+  puts "Destroying #{current_team.name}."
+  current_team.destroy
 end
 def remove_game
+  view_games
+  print "Game (#) to delete: "
+  game_input = gets.chomp.to_i
+  current_game = Game.find(game_input)
+  puts "Destroying Game Id: #{current_game.id}"
+  current_game.destroy
 end
 
 def view_players
@@ -169,9 +187,10 @@ end
 def view_games
   system("clear")
   puts "Games:"
-  puts "(id) Date"
-  puts "---- --------"
-  Game.all.each {|game| puts "#{game.game_date} between team #{game.home_id} and team #{game.visitor_id}"}
+  puts "(id) Date -- Home Team ID -- Visitor Team ID"
+  puts "---- ---------------------------------------"
+  Game.all.each {|game| puts "(#{game.id}) #{game.game_date.strftime "%Y-%m-%d"} between team #{game.home_id} and team #{game.visitor_id}"}
+  puts "\n\n"
 end
 
 def add_goal
