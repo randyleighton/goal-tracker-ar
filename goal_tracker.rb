@@ -175,7 +175,12 @@ end
 def view_player
   view_players
   puts "Choose (#) for player detail"
-
+  player_choice = gets.chomp.to_i
+  current_player = Player.find(player_choice)
+  puts "Player Name: #{current_player.name}"
+  puts "Player Number: #{current_player.number}"
+  puts "Player Team: #{current_player.team.name}"
+  puts "\n\n"
 end
 
 def view_team
