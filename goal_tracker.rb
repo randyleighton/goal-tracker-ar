@@ -128,7 +128,6 @@ def add_player
   print "\nChoose the [#] of the player's team: "
   team_inp = gets.chomp.to_i
   player_new = Player.new({name: name_inp, number: number_inp ,team_id: team_inp})
-  binding.pry
   if player_new.save
     puts "'#{player_new.name}' has been saved."
   else
@@ -149,12 +148,14 @@ def add_game
   print "\n\nEnter the date of the game yyyy/mm/dd: "
   game_date = gets.chomp
   view_teams
-  print "\n\nEnter the [#] of the Home Team: "
+  print "Enter the [#] of the Home Team: "
   home_team = gets.chomp.to_i
-  print "\n\nEnter the [#] of the Visiting Team: "
+  print "Enter the [#] of the Visiting Team: "
   visitor_team = gets.chomp.to_i
   new_game = Game.create(game_date: game_date,home_id: home_team ,visitor_id:visitor_team)
-  puts "Game on #{new_game.game_date} between #{new_game.home_id} and #{new_game.visitor_id} entered."
+  home_team = Team.find(new_game.home_id)
+  visitor_team = Team.find(new_game.visitor_id)
+  puts "Game on #{new_game.game_date.strftime '%Y-%m-%d'} between #{home_team.name} and #{visitor_team.name} entered.\n\n"
 end
 
 def remove_player
