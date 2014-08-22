@@ -42,11 +42,11 @@ def data_menu
     puts "[= ADD =]"
     puts "(1) Add Player"
     puts "(2) Add Team"
-    puts "(3) Add Game\n\n"
+    puts "(3) Add Game"
     puts "[= REMOVE=]"
     puts "(4) Remove Player"
     puts "(5) Remove Team"
-    puts "(6) Remove Game\n\n"
+    puts "(6) Remove Game"
     puts "[= VIEW =]"
     puts "(7) View Player Detail"
     puts "(8) View Team Detail"
@@ -178,6 +178,8 @@ def view_player
   puts "\nChoose (#) for player detail"
   player_choice = gets.chomp.to_i
   current_player = Player.find(player_choice)
+  system("clear")
+  puts "[= Player Detail =]"
   puts "Player Name: #{current_player.name}"
   puts "Player Number: #{current_player.number}"
   puts "Player Team: #{current_player.team.name}"
@@ -190,6 +192,8 @@ def view_team
   puts "\nChoose (#) for team detail"
   team_choice = gets.chomp.to_i
   current_team = Team.find(team_choice)
+  system("clear")
+  puts "[= Team Detail =]"
   puts "Team Name: #{current_team.name}"
   puts "\nPlayer list:"
   current_team.players.each do |player|
@@ -206,7 +210,8 @@ def view_game
   current_game = Game.find(game_choice)
   home_team = Team.find(current_game.home_id)
   visitor_team = Team.find(current_game.visitor_id)
-  puts "Game Detail: "
+  system("clear")
+  puts "[= Game Detail =]"
   puts " Date: #{current_game.game_date.strftime "%Y-%m-%d"}"
   puts " Home team: #{home_team.name}"
   puts " Visit team: #{visitor_team.name}"
