@@ -108,7 +108,7 @@ def goal_menu
     when '1'
       add_goal
     when '2'
-      view_goals
+      view_all_goals
     when 'x'
       puts "returning to main menu."
     else
@@ -121,7 +121,7 @@ def add_player
   print "\n\nEnter a player's last name: "
   name_inp = gets.chomp
   print "\nEnter the player's number: "
-  number_inp = gets.chomp.to_i
+  number_inp = gets.chomp
   puts "\n\n"
   view_teams
   print "\nChoose the [#] of the player's team: "
@@ -130,9 +130,9 @@ def add_player
   if player_new.save
     puts "'#{player_new.name}' has been saved."
   else
-    puts "Error."
+    puts "Error: "
     player_new.errors.full_messages.each { |message| puts message }
-    binding.pry
+    puts "\n"
   end
 end
 
@@ -278,11 +278,15 @@ def add_goal
 
 end
 
-def view_goals
+def view_all_goals
   system("clear")
-  view_players
-  puts "choose a player id (#) to view their games with goals: "
-  player_inp = gets.chomp.to_i
+  Goal.all.each do |goal|
+    current_game = Game.find(goal.game_id)
+    current_player = Player.find(goal.player_id)
+    current_team = Team.find (current_player.team_id)
+    puts "Game: #{goal.id} -- #{current_game.game_date.strftime '%Y-%m-%d'} -- #{current_player.name} -- #{current_team.name}"
+  end
+  puts "\n"
 end
 
 

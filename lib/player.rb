@@ -6,9 +6,8 @@ class Player < ActiveRecord::Base
 
   before_save :capitalize_name
   validates :name, :presence => true, :length => {:maximum => 40}
-  validates :number, :length => { is: 2 }
-  #validates_numericality_of :number, :only_integer => true
-  #why does numericality validation not work.
+  validates :number, :length => { is: 2 }, :numericality => { only_integer: true }
+  #numericality does not seem to work
 
 private
 
