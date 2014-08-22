@@ -8,8 +8,8 @@ Project is designed to meet assessment criteria for Active Record mastery includ
 
 1. Associations: Relations are created and tested with shoulda-matchers between the tables.
 
-2. Validations: Validation put on creating new Player objects, to validate if name is present. It also verifies that the jersey number is only 2 characters long.
+2. Validations: Validation put on creating new Player objects, to validate if name is present. It also verifies that the jersey number is numeric and a maximum of 2 characters long.
 
-3. Scopes - There is a class method for retrieving and querying objects.
+3. Scopes - There is a class method in Game for searching for games by date.
 
 4. Callbacks: there is a callback function in the player class to lowercase the name input then Capitalize it.
