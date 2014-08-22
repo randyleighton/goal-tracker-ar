@@ -221,6 +221,24 @@ end
 
 def view_game
   system("clear")
+  puts "View games:"
+  puts "[1] view one game"
+  puts "[2] search a date range for games"
+  puts ""
+  print "Choice: "
+  choice = gets.chomp
+  puts "\n"
+  if choice == '1'
+    view_single
+  elsif choice == '2'
+    view_range
+  else
+    puts "wrong choice."
+  end
+    puts "\n\n"
+end
+
+def view_single
   view_games
   puts "\nChoose (#) for game detail"
   game_choice = gets.chomp.to_i
@@ -234,6 +252,24 @@ def view_game
   puts " Visit team: #{visitor_team.name}"
   puts "\n\n"
 end
+
+def view_range
+    print "Starting date yyyy/mm/dd: "
+    start_date = gets.chomp
+    print "\nEnd date yyyy/mm/dd: "
+    end_date = gets.chomp
+    system("clear")
+    search_games = Game.date_search(start_date, end_date)
+    search_games.each do |game|
+      home_team = Team.find(game.home_id)
+      visitor_team = Team.find(game.visitor_id)
+      puts "(#{game.id}) #{game.game_date.strftime '%Y-%m-%d'}"
+      puts " Home team: #{home_team.name}"
+      puts " Visit team: #{visitor_team.name}"
+    end
+end
+
+
 
 def view_players
   system("clear")
