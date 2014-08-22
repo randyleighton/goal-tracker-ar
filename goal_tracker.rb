@@ -3,6 +3,7 @@ require './lib/game.rb'
 require './lib/player.rb'
 require './lib/team.rb'
 require './lib/goal.rb'
+require './lib/colors.rb'
 require 'pry'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
@@ -13,13 +14,13 @@ def  main_menu
   system("clear")
   choice = nil
   until choice  == 'x'
-    puts "[== Main Menu==]"
-    puts "(1) Data Management Menu"
+    puts "[== Main Menu==]".blue
+    puts "(1) Data Management Menu".cyan
     puts "    * Add/Remove/View"
     puts "    * players/teams/game dates\n\n"
-    puts "(2) Goal Management Menu"
+    puts "(2) Goal Management Menu".cyan
     puts "    * add/view/remove goals\n\n"
-    puts "(x) Exit Goal Tracker\n\n"
+    puts "(x) Exit Goal Tracker\n\n".red
     print "Enter Choice: "
     choice = gets.chomp
     case choice
@@ -39,25 +40,25 @@ def data_menu
   system("clear")
   choice = nil
   until choice  == 'x'
-    puts "[== Data Menu ==]\n\n"
-    puts "[= ADD =]"
+    puts "[== Data Menu ==]\n".blue
+    puts "[= ADD =]".cyan
     puts "(1) Add Player"
     puts "(2) Add Team"
     puts "(3) Add Game"
-    puts "[= REMOVE=]"
+    puts "[= REMOVE=]".cyan
     puts "(4) Remove Player"
     puts "(5) Remove Team"
     puts "(6) Remove Game"
-    puts "[= VIEW =]"
+    puts "[= VIEW =]".cyan
     puts "(7) View Player Goals"
     puts "(8) View Team Roster"
     puts "(9) View Game Details"
-    puts "[= VIEW ALL =]"
+    puts "[= VIEW ALL =]".cyan
     puts "(10) View all Players"
     puts "(11) View all Teams"
     puts "(12) View all Games\n\n"
-    puts "[= EXIT=]"
-    puts "(x) Exit to Main Menu\n\n"
+    puts "[= EXIT=]".cyan
+    puts "(x) Exit to Main Menu\n\n".red
     print "Enter Choice: "
     choice = gets.chomp
     case choice
@@ -97,11 +98,11 @@ def goal_menu
   system("clear")
   choice = nil
   until choice  == 'x'
-    puts "[== Goal Menu ==]\n\n"
+    puts "[== Goal Menu ==]\n".blue
     puts "(1) Add a goal to a player"
     puts "(2) View goals by player"
     puts "\n"
-    puts "(x) Exit to Main Menu\n\n"
+    puts "(x) Exit to Main Menu\n\n".red
     print "Enter Choice: "
     choice = gets.chomp
     case choice
@@ -127,6 +128,7 @@ def add_player
   print "\nChoose the [#] of the player's team: "
   team_inp = gets.chomp.to_i
   player_new = Player.new({name: name_inp, number: number_inp ,team_id: team_inp})
+  binding.pry
   if player_new.save
     puts "'#{player_new.name}' has been saved."
   else
@@ -146,6 +148,7 @@ end
 def add_game
   print "\n\nEnter the date of the game yyyy/mm/dd: "
   game_date = gets.chomp
+  view_teams
   print "\n\nEnter the [#] of the Home Team: "
   home_team = gets.chomp.to_i
   print "\n\nEnter the [#] of the Visiting Team: "
@@ -258,7 +261,7 @@ def view_games
   puts "Games:"
   puts "(id) Date       Home ID  Visit ID"
   puts "---- ---------------------------"
-  Game.all.each {|game| puts "(#{game.id}) #{game.game_date.strftime "%Y-%m-%d"}   #{game.home_id}       #{game.visitor_id}"}
+  Game.all.each {|game| puts "(#{game.id}) #{game.game_date.strftime '%Y-%m-%d'}   #{game.home_id}       #{game.visitor_id}"}
   puts "\n\n"
 end
 
@@ -274,17 +277,17 @@ def add_goal
   current_game = Game.find(game_inp)
   current_goal = Goal.create({game_id: current_game.id, player_id: current_player.id})
   current_player.goals
-  binding.pry
-
 end
 
 def view_all_goals
   system("clear")
+    puts "Date          Player    Team"
+    puts "----------------------------"
   Goal.all.each do |goal|
     current_game = Game.find(goal.game_id)
     current_player = Player.find(goal.player_id)
     current_team = Team.find (current_player.team_id)
-    puts "Game: #{goal.id} -- #{current_game.game_date.strftime '%Y-%m-%d'} -- #{current_player.name} -- #{current_team.name}"
+    puts "#{current_game.game_date.strftime '%Y-%m-%d'} -- #{current_player.name} -- #{current_team.name}"
   end
   puts "\n"
 end

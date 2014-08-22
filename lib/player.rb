@@ -5,9 +5,9 @@ class Player < ActiveRecord::Base
   has_many :games, through: :goals
 
   before_save :capitalize_name
+
   validates :name, :presence => true, :length => {:maximum => 40}
-  validates :number, :length => { is: 2 }, :numericality => { only_integer: true }
-  #numericality does not seem to work
+  validates :number, :length => { maximum: 2 }, :numericality => { only_integer: true }
 
 private
 

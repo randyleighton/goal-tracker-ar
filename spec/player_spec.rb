@@ -11,9 +11,6 @@ describe Player do
     new_player = Player.new(name: 'george', number: 'fff', team: new_team)
     new_player.save
     expect(new_player.errors[:number]).to eq ["is the wrong length (should be 2 characters)", "is not a number"]
-
   end
-
-
 
 end
