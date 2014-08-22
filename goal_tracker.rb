@@ -2,6 +2,7 @@ require 'active_record'
 require './lib/game.rb'
 require './lib/player.rb'
 require './lib/team.rb'
+require './lib/goal.rb'
 require 'pry'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
@@ -48,9 +49,9 @@ def data_menu
     puts "(5) Remove Team"
     puts "(6) Remove Game"
     puts "[= VIEW =]"
-    puts "(7) View Player Detail"
-    puts "(8) View Team Detail"
-    puts "(9) View Game Detail"
+    puts "(7) View Player Goals"
+    puts "(8) View Team Roster"
+    puts "(9) View Game Details"
     puts "[= VIEW ALL =]"
     puts "(10) View all Players"
     puts "(11) View all Teams"
@@ -189,13 +190,19 @@ def view_player
   puts "Player Name: #{current_player.name}"
   puts "Player Number: #{current_player.number}"
   puts "Player Team: #{current_player.team.name}"
+  puts "Goals: "
+  current_player.goals.each do |goal|
+    puts "Player has scored #{current_player.goals.count} goals."
+    current_game = Game.find(goal.game_id)
+    puts "Goal scored on: #{current_game.game_date.strftime "%Y-%m-%d"}"
+  end
   puts "\n\n"
 end
 
 def view_team
   system("clear")
   view_teams
-  puts "\nChoose (#) for team detail"
+  puts "\nChoose (#) for team roster"
   team_choice = gets.chomp.to_i
   current_team = Team.find(team_choice)
   system("clear")
@@ -260,9 +267,15 @@ def add_goal
   view_players
   puts "choose a player id (#) to add a goal:"
   player_inp = gets.chomp.to_i
+  current_player = Player.find(player_inp)
   view_games
   puts "\n\nChoose the (#) of the game the player scored in: "
   game_inp = gets.chomp.to_i
+  current_game = Game.find(game_inp)
+  current_goal = Goal.create({game_id: current_game.id, player_id: current_player.id})
+  current_player.goals
+  binding.pry
+
 end
 
 def view_goals

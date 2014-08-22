@@ -1,7 +1,7 @@
 gem 'activerecord'
 gem 'pg'
 gem 'rake'
-gem 'rspec', '~> 2.99'
+gem 'rspec'
 gem 'active_record_migrations'
 gem 'shoulda-matchers'
 gem 'pry'

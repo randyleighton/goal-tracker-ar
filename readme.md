@@ -1,17 +1,15 @@
 #Goal Tracker
 
-This is an active record Ruby project by Randy Leighton
+This is a Ruby project by Randy Leighton. This utilizes active record instead of SQL like the previous version of the Goal Tracker.
 
-This allows you to add players, games and create goals scored by players in a join table.
+This app allows you to add players, games and create goals scored by players.
 
-This utilizes active record instead of SQL like the previous version of the Goal Tracker.
+Project is designed to meet assessment criteria for Active Record mastery including:
 
-Project focuses on meeting assessment criteria for Active Record mastery including:
+1. Associations: Relations are created and tested with shoulda-matchers between the tables.
 
-associations: relations are created and tested with shoulda-matchers between the tables.
+2. Validations: Validation put on creating new Player objects, to validate if name is present. It also verifies that the jersey number is only 2 characters long.
 
-validations: validation put on creating new Player objects, to validate if name is present. It also verifies that the jersey number is only 2 characters long.
+3. Scopes - There is a class method for retrieving and querying objects.
 
-scopes
-
-callbacks: there is a callback function in the player class to lowercase the name input then Capitalize it.
+4. Callbacks: there is a callback function in the player class to lowercase the name input then Capitalize it.

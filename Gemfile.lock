@@ -74,5 +74,5 @@ DEPENDENCIES
   pg
   pry
   rake
-  rspec (~> 2.99)
+  rspec
   shoulda-matchers
