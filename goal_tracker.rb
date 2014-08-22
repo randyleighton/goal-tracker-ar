@@ -125,8 +125,14 @@ def add_player
   view_teams
   print "\nChoose the [#] of the player's team: "
   team_inp = gets.chomp.to_i
-  player_new = Player.create({name: name_inp, number: number_inp ,team_id: team_inp})
-  puts "#{player_new.name} added."
+  player_new = Player.new({name: name_inp, number: number_inp ,team_id: team_inp})
+  if player_new.save
+    puts "'#{player_new.name}' has been saved."
+  else
+    puts "Error."
+    player_new.errors.full_messages.each { |message| puts message }
+    binding.pry
+  end
 end
 
 def add_team
