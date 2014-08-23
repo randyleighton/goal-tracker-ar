@@ -4,7 +4,6 @@ require './lib/player.rb'
 require './lib/team.rb'
 require './lib/goal.rb'
 require './lib/colors.rb'
-require 'pry'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
 development_configuration = database_configurations['development']
@@ -254,22 +253,20 @@ def view_single
 end
 
 def view_range
-    print "Starting date yyyy/mm/dd: "
-    start_date = gets.chomp
-    print "\nEnd date yyyy/mm/dd: "
-    end_date = gets.chomp
-    system("clear")
-    search_games = Game.date_search(start_date, end_date)
-    search_games.each do |game|
-      home_team = Team.find(game.home_id)
-      visitor_team = Team.find(game.visitor_id)
-      puts "(#{game.id}) #{game.game_date.strftime '%Y-%m-%d'}"
-      puts " Home team: #{home_team.name}"
-      puts " Visit team: #{visitor_team.name}"
-    end
+  print "Starting date yyyy/mm/dd: "
+  start_date = gets.chomp
+  print "\nEnd date yyyy/mm/dd: "
+  end_date = gets.chomp
+  system("clear")
+  search_games = Game.date_search(start_date, end_date)
+  search_games.each do |game|
+    home_team = Team.find(game.home_id)
+    visitor_team = Team.find(game.visitor_id)
+    puts "(#{game.id}) #{game.game_date.strftime '%Y-%m-%d'}"
+    puts " Home team: #{home_team.name}"
+    puts " Visit team: #{visitor_team.name}"
+  end
 end
-
-
 
 def view_players
   system("clear")
@@ -318,18 +315,15 @@ end
 
 def view_all_goals
   system("clear")
-    puts "Date          Player    Team"
-    puts "----------------------------"
+  puts "Date          Player    Team"
+  puts "----------------------------"
   Goal.all.each do |goal|
     current_game = Game.find(goal.game_id)
     current_player = Player.find(goal.player_id)
     current_team = Team.find (current_player.team_id)
     puts "#{current_game.game_date.strftime '%Y-%m-%d'} -- #{current_player.name} -- #{current_team.name}"
-  end
+    end
   puts "\n"
 end
-
-
-
 
 main_menu
