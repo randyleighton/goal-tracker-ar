@@ -12,4 +12,5 @@ describe Game do
     expect(Game.date_search("2014-08-16", "2014-08-20")).to eq [test_game1, test_game2]
   end
 
+
 end
